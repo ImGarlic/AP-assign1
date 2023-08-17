@@ -24,9 +24,9 @@ public class Database {
 
 	// Intialise the database to either a CSV or the hard-coded default.
 	// CSV must be named "posts.csv"
-	public void init(String type, String filename) throws FileNotFoundException{
+	public void init(String type, File csv) throws FileNotFoundException{
 		if (type == "csv") {
-			readCSV(filename);
+			readCSV(csv);
 		} else if (type == "default") {
 			generateDB();
 		}
@@ -87,8 +87,8 @@ public class Database {
 	
 	// Reads the file named "posts.csv". Individual posts will be skipped if they are of incorrect format.
 	// Program will exit if the file is not found
-	private void readCSV(String filename) throws FileNotFoundException {
-		Scanner scanner = new Scanner(new File(filename));
+	private void readCSV(File csv) throws FileNotFoundException {
+		Scanner scanner = new Scanner(csv);
 		scanner.nextLine(); // skip headers
 		while (scanner.hasNextLine()) {
 			try {
@@ -98,6 +98,7 @@ public class Database {
 				System.out.printf("Failed to import post: %s\n", e.getMessage());
 			}
 		}
+		scanner.close();
 	}
 	
 	// Generate default database

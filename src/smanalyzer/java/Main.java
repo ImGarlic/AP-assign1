@@ -1,5 +1,6 @@
 package smanalyzer.java;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 
 import smanalyzer.java.service.*;
@@ -16,15 +17,16 @@ public class Main {
 		// Enter any argument into the command-line to use the hard-coded database.
 		if(args.length > 0) {
 			try {
-				db.init(USE_DEFAULT, null);
+				File csv = new File(PATH_TO_CSV);
+				db.init(USE_DEFAULT, csv);
 			} catch(FileNotFoundException e) {
-				// This should never be hit since not CSV should be read
 				System.out.printf("Missing database file: %s\n", PATH_TO_CSV);
 				System.exit(1);
 			}
 		} else {
 			try {
-				db.init(USE_CSV, PATH_TO_CSV);
+				File csv = new File(PATH_TO_CSV);
+				db.init(USE_CSV, csv);
 			} catch(FileNotFoundException e) {
 				System.out.printf("Missing database file: %s\n", PATH_TO_CSV);
 				System.exit(1);
